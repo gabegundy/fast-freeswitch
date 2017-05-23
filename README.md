@@ -1,6 +1,6 @@
 # Fast FreeSWITCH
 
-We use Vagrant to kick this whole thing off. So, get this repo downloaded to the HOST build machine (again, Win, Mac, or Lin).
+We use Vagrant to kick this whole thing off. So, get going by downloading Vagrant to the *host* build machine (Win, Mac, or Lin).
 
 
 ##### STEP #1 Install Vagrant
@@ -23,17 +23,24 @@ Let's bring the box up. This might take a minute or two depending on your bandwi
     # And now we simply let vagrant create our box and bring it up. 
     vagrant up
 
+
+##### STEP #4 Logging In
+
 Once the box is up and running, it should then start installing FreeSWITCH for us.
 
     # When the box has been installed we can get access via ssh.
     # (No need for passwords, Vagrant installs the keys we'll need.)
     vagrant ssh
 
+Congratulations! You've now connected to a fresh install of Debian Jesse and a freshly installed FreeSWITCH.
+
+
+#### Other Vagrant Stuff
+
 If the box gets updated by the folks at HashiCorp, we'll want to update our copy too.
+
     # This only needs done once and a while.
     vagrant box update
-
-Congratulations! You've now connected to a fresh install of Debian Jesse and a freshly installed FreeSWITCH.
 
 Wrap up your vagrant box when no longer needed (log out of the guest before running these commands on the *host* system):
 
