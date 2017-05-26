@@ -18,14 +18,6 @@ Vagrant.configure(2) do |config|
         vb.cpus = "4"
     end
 
-    # Good to snapshot after this.
-    config.vm.define "install" do |install|
-      install.vm.provision "shell", path: "install.sh"
-    end
-
-    # This will only run when you tell it to run.
-    config.vm.define "finish" do |finish|
-      finish.vm.provision "shell", path: "finish.sh", run: "never"
-    end
+    config.vm.provision "shell", path: "install.sh"
 
 end

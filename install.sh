@@ -16,15 +16,22 @@ apt-get update
 # Install everything (including the kitchen sink).
 apt-get install -y freeswitch-meta-all sngrep vim-nox tree
 
-echo ""
-echo ""
-echo "INSTALLING FREESWITCH... INSTALLING FREESWITCH... INSTALLING FREESWITCH... INSTALLING FREESWITCH..."
-echo "INSTALLING FREESWITCH... INSTALLING FREESWITCH... INSTALLING FREESWITCH... INSTALLING FREESWITCH..."
-echo "INSTALLING FREESWITCH... INSTALLING FREESWITCH... INSTALLING FREESWITCH... INSTALLING FREESWITCH..."
-echo "INSTALLING FREESWITCH... INSTALLING FREESWITCH... INSTALLING FREESWITCH... INSTALLING FREESWITCH..."
-echo ""
-echo ""
+chown -R vagrant:vagrant /etc/freeswitch/*
+chmod -R 777 /etc/freeswitch/*
 
-echo "Now that we're done installing, you might want to make a snapshot with Virtualbox."
-echo "Great. Now that you've done that, we can run the last step in setting up the box..."
-echo "vagrant --provision-with finish"
+sed -i "s/#alias/alias/" /home/vagrant/.bashrc
+sed -i "s/#alias/alias/" /root/.bashrc
+
+echo "syntax on" >> /etc/vim/vimrc
+echo "set background=dark" >> /etc/vim/vimrc
+
+sed -i "s/default_password=1234/default_password=PASSWORD/" /etc/freeswitch/vars.xml
+
+sed -i '2,14d' /etc/freeswitch/vars.xml 
+sed -i '3d' /etc/freeswitch/vars.xml 
+sed -i '3i\  <X-PRE-PROCESS cmd="set" data="local_ip_v4=***YOUR BRIDGED IP***"/>' /etc/freeswitch/vars.xml 
+
+find /etc/freeswitch -type d -name "*ipv6*" -exec rm -fR {} \;
+find /etc/freeswitch -type f -name "*ipv6*" -exec rm {} \;
+
+service freeswitch restart
